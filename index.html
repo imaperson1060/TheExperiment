@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+
+        <title>The Experiment</title>
+        <meta name="description" content="Just a fun experiment that may or may not cause permanent psychological damage">
+        <meta name="author" content="imaperson">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/js/bootstrap.bundle.min.js"></script>
+
+        <script src="script.js"></script>
+    </head>
+    <body class="darkmode bg-dark text-white">
+        <div class="container">
+            <br>
+
+            <div id="stage1" class="stage">
+                <h1>Welcome to The Experiment</h1>
+                
+                <br>
+    
+                <h5>Here are the rules:</h5>
+                <ul>
+                    <!-- <li><span class="text-white stage1-select">The aim of this game is to press buttons</span></li> -->
+                    <!-- <li><span class="text-white stage1-select">You do not know what these buttons do, just that you must press them.</span></li> -->
+                    <!-- <li><span class="text-white stage1-select">You will be accompanied by an artificially intelligent companion named Billy.</span></li> -->
+                    <!-- <li><span class="text-white stage1-select">You have to press the buttons that light up in yellow.</span></li> -->
+                    <!-- <li><span class="text-white stage1-select">Every button you miss will be permanently disabled.</span></li> -->
+                    <!-- <li><span class="text-white stage1-select">Every round will get progressively faster and longer.</span></li> -->
+                    <!-- <li><span class="text-white stage1-select">So where does Billy come in? Billy will be the one sending the buttons for you to press.</span></li> -->
+                    <!-- <li><span class="text-white stage1-select">The game ends when all the buttons are disabled.</span></li> -->
+                    <!-- <li><span class="text-white stage1-select">What happens then? You don't want to find out.</span></li> -->
+                    <li>The aim of this game is to press buttons</li>
+                    <li>You do not know what these buttons do, just that you must press them.</li>
+                    <li>You will be accompanied by an artificially intelligent companion named Billy.</li>
+                    <li>You have to press the buttons that light up in yellow.</li>
+                    <li>Every button you miss will be permanently disabled.</li>
+                    <li>Every round will get progressively faster and longer.</li>
+                    <li>So where does Billy come in? Billy will be the one sending the buttons for you to press.</li>
+                    <li>The game ends when all the buttons are disabled.</li>
+                    <li>What happens then? You don't want to find out.</li>
+                </ul>
+
+                <!-- <button id="stage1-rulesbtn" class="btn btn-primary" onclick="stage('2')">Continue</button> -->
+                <button class="btn btn-primary" onclick="stage('2')">Continue</button>
+            </div>
+
+            <!-- <div id="stage2" class="stage">
+                <h1>You read them already?</h1>
+                <p class="lead">I don't believe you. Go back and read them better.</p>
+
+                <br>
+
+                <button class="btn btn-primary" onclick="stage('1')">Go back</button>
+            </div> -->
+
+            <div id="stage2" class="stage">
+                <h1>Terms and Conditions</h1>
+                <p class="lead">Press <button class="btn btn-primary btn-sm" onclick="stage('3')">Accept</button> to continue.</p>
+
+                <br>
+
+                <h5>I. Safety</h5>
+                <ul>
+                    <li>Any and all entities affiliated with The Experiment are not liable for any injuries you may sustain by participating in The Experiment.</li>
+                    <li>By agreeing to the Terms and Conditions of The Experiment, you waive your basic rights as a human. Included are:</li>
+                    <ul>
+                        <li>Your constitutional rights (Americans only)</li>
+                        <li>The right to quit The Experiment</li>
+                        <li>Any and all free will</li>
+                    </ul>
+                    <li>You may not recieve counceling for up to 6 weeks after participating in The Experiment, as you will still be monitored until then.</li>
+                </ul>
+                <h5>II. Copyright</h5>
+                <ul>
+                    <li>"The Experiment", "Billy", and you are all property of The Experiment, and cannot be used without express permission from The Experiment.</li>
+                    <li>Any unauthorized use of The Experiment copyright materials will result in elimination from The Experiment, followed by elimination from life.</li>
+                    <li>As property of The Experiment, you are legally required to return to participate in any future Experiments.</li>
+                </ul>
+                <h5>III. Freedoms</h5>
+                <ul>
+                    <li>During The Experiment, you will be allowed certain freedoms, such as:</li>
+                    <ul>
+                        <li>Free movement inside the bounds of The Experiment</li>
+                    </ul>
+                    <li>Any freedoms not listed above, such as the freedom of speech, are not permitted during The Experiment.</li>
+                    <li>After the conclusion of The Experiment, these freedoms will be expanded to:</li>
+                    <ul>
+                        <li>Free movement inside of your legal residence</li>
+                        <li>Free speech, excluding anything related to The Experiment</li>
+                    </ul>
+                    <li>Any freedoms not listed above, such as the freedom to use communication devices, are not permitted outside of the Experiment.</li>
+                </ul>
+                <h5>IV. Provisions during The Experiment</h5>
+                <ul>
+                    <li>During The Experiment, you will be provided with nothing, other than a mouse.</li>
+                    <li>Any attempt to bring unauthorized items into The Experiment will result in elimination from The Experiment, followed by elimination from life.</li>
+                </ul>
+                <h5>V. This is a joke</h5>
+                <ul>
+                    <li>None of this "contract" is legally binding.</li>
+                    <li>I did have a lot of fun writing it though :D</li>
+                </ul>
+            </div>
+
+            <div id="stage3" class="stage">
+                <h1>Game Options</h1>
+
+                <br>
+
+                <div class="form-check">
+                    <input id="stage3_shuffle" class="form-check-input" type="checkbox">
+                    <label id="stage3_shuffle_text" class="form-check-label" for="stage3_shuffle">
+                        Shuffle boxes every round (extra challenge)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input id="stage3_numbers" class="form-check-input" type="checkbox">
+                    <label id="stage3_numbers_text" class="form-check-label" for="stage3_numbers">
+                        View button IDs
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input id="stage3_stats" class="form-check-input" type="checkbox">
+                    <label id="stage3_stats_text" class="form-check-label" for="stage3_stats">
+                        View experimental stats
+                    </label>
+                </div>
+
+                <br>
+
+                <button class="btn btn-primary" onclick="stage('4')">Play</button>
+            </div>
+
+            <div id="stage4" class="stage">
+                <h1>Score: <span id="stage4_score">0</span><button id="stage4_pause" class="btn btn-secondary" onclick="globals['pause'] = !globals['pause']" style="float: right;"><i class="bi bi-pause-fill"></i></button></h1>
+
+                <br>
+
+                <div id="stage4_buttons"></div>
+
+                <br>
+                
+                <div class="progress"><div id="stage4_progress" class="progress-bar progress-bar-striped progress-bar-animated w-0" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div></div>
+
+                <br>
+
+                <h5>Estimated Time to Completion: <span id="stage4_time"></span></h5>
+            </div>
+
+            <div id="stage5" class="stage">
+                <h1>End of round <span id="stage5_round">0</span></h1>
+
+                <br>
+
+                <h5>Results:</h5>
+                <div id="stage5_info"></div>
+
+                <br>
+
+                <button class="btn btn-primary" onclick="stage('4')">Next Round</button>
+            </div>
+
+            <div id="stage6" class="stage">
+                <h1>Game over</h1>
+
+                <br>
+
+                <h5>You lasted <span id="stage6_roundCount">0</span> rounds</h5>
+
+                <br>
+
+                <h5>Your score was <span id="stage6_score">0</span></h5>
+
+                <br>
+
+                <h5>Here's a breakdown:</h5>
+                
+                <div id="stage6_breakdown" class="accordion">
+                </div>
+
+                <br>
+
+                <h5>But here's the twist:</h5>
+                <p class="lead">Billy was a lie</p>
+
+                <br>
+
+                <h5>Billy was just a random number generator. Not an AI.</h5>
+                <p class="lead">This is the real Billy: <span id="billy"></span></p>
+
+                <br>
+
+                <h5>So how is this Collaborate with AI?</h5>
+                <p class="lead">It's simple actually...</p>
+
+                <br>
+
+                <h2>I am the AI</h2>
+                <p class="lead">This entire time you've been feeding me more data about humanity.</p>
+            </div>
+
+            <br>
+
+            <button id="mode" class="btn btn-secondary" onclick="mode('light')" style="float: bottom;"><i class="bi bi-sun-fill"></i></button>
+
+            <br>
+
+            <p></p>
+            <!-- This is just to add a line below that button -->
+        </div>
+    </body>
+</html>
