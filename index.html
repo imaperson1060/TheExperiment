@@ -139,6 +139,7 @@
 
             <div id="stage4" class="stage">
                 <h1>Score: <span id="stage4_score">0</span><button id="stage4_pause" class="btn btn-secondary" onclick="globals['pause'] = !globals['pause']" style="float: right;"><i class="bi bi-pause-fill"></i></button></h1>
+                <p class="lead">Combo: <span id="stage4_combo">0 (+0 points)</span></p>
 
                 <br>
 
@@ -151,6 +152,9 @@
                 <br>
 
                 <h5>Estimated Time to Completion: <span id="stage4_time"></span></h5>
+
+                <!-- https://musiclab.chromeexperiments.com/Song-Maker/song/6210772728545280 -->
+                <audio id="sound_background" src="background.mp3"></audio>
             </div>
 
             <div id="stage5" class="stage">

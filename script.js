@@ -129,6 +129,8 @@ const funcs = {
         let time = 0 - ((1000 - ((globals["round"] - 1) * 25)) / 1000);
         let reactTime = 0;
         let reactTimeAvg = [];
+        let combo = 0;
+        let lastSuccess = false;
 
         globals["buttons"] = globals["buttons"] || new Array(50);
         for (var i = 0; i < 50; i++) {
@@ -141,21 +143,32 @@ const funcs = {
             if (globals["pause"]) return;
 
             if ($(e.target).hasClass("btn-warning") || (!$(".btn-warning.game_btn").length && globals["buttons"].filter(x => x.enabled && !x.used).length == 1)) {
+                new Audio("success.wav").play();
+
                 $(e.target).removeClass("btn-warning").addClass("btn-success").attr("disabled", true);
                 globals["buttons"].find(y => y.id == $(e.target).attr("btn-id")).used = true;
                 
+                if (!lastSuccess) combo = 0;
+                else combo++;
+
+                lastSuccess = true;
+
                 // I suck at math, sorry!
                 // First part: (1000 / (1000 - (round * 25))), i.e. round 1 is 1.025 and round 2 is 1.052
                 // Second part: Points based on reaction time, i.e. 0.2 second reaction time is + 0.8 points (if the react time is above 1, because JS intervals are dumb, use default reaction time)
                 // I'm not entirely sure if this works but it seems fairly accurate and I don't want to touch it now that it's working
-                globals["score"] += ((1000 / (1000 - ((globals["round"] - 1) * 25))) + (1 - +((1000 - ((globals["round"] - 1) * 25)) - (time - reactTime).toFixed(1) > 0 ? (time - reactTime).toFixed(1) : (1000 - ((globals["round"] - 1) * 25))))) * 10;
-
-                reactTimeAvg.push((1000 - ((globals["round"] - 1) * 25)) - (time - reactTime).toFixed(1) > 0 ? (time - reactTime).toFixed(1) : (1000 - ((globals["round"] - 1) * 25)));
-                reactTime = time;
+                globals["score"] += (((1000 / (1000 - ((globals["round"] - 1) * 25))) + (1 - +((1000 - ((globals["round"] - 1) * 25)) - (time - reactTime).toFixed(1) > 0 ? (time - reactTime).toFixed(1) : (1000 - ((globals["round"] - 1) * 25))))) * 10) + (combo * 3);
             } else {
+                new Audio("fail.wav").play();
+
                 globals["buttons"].find(y => y.id == $(e.target).attr("btn-id")).enabled = false;
                 $(e.target).attr("disabled", true).removeClass("btn-warning").addClass("btn-danger");
+
+                lastSuccess = false;
             }
+
+            reactTimeAvg.push((1000 - ((globals["round"] - 1) * 25)) - (time - reactTime).toFixed(1) > 0 ? (time - reactTime).toFixed(1) : (1000 - ((globals["round"] - 1) * 25)));
+            reactTime = time;
 
             $("#stage4_progress").attr("aria-valuenow", (100 * globals["buttons"].filter(x => (!x.enabled || x.used) && x.round == globals["round"]).length) / globals["buttons"].filter(x => x.round == globals["round"]).length).width(`${$("#stage4_progress").attr("aria-valuenow")}%`);
         });
@@ -164,9 +177,13 @@ const funcs = {
             if (globals["pause"]) return;
 
             if ($(".game_btn.btn-warning").length > 0) {
+                new Audio("fail.wav").play();
+
                 $(".game_btn.btn-warning").each((i, x) => globals["buttons"].find(y => y.id == $(x).attr("btn-id")).enabled = false);
                 $(".game_btn.btn-warning").attr("disabled", true).removeClass("btn-warning").addClass("btn-danger");
                 
+                lastSuccess = false;
+
                 reactTimeAvg.push((1000 - ((globals["round"] - 1) * 25)) - (time - reactTime).toFixed(1) > 0 ? (time - reactTime).toFixed(1) : (1000 - ((globals["round"] - 1) * 25)));
                 reactTime = time;
             }
@@ -194,7 +211,7 @@ const funcs = {
 
             globals["buttons"].filter(x => x.enabled && !x.used)[random].used = true;
 
-            $("#stage4_progress").attr("aria-valuenow", (100 * (globals["buttons"].filter(x => (!x.enabled || x.used) && x.round == globals["round"]).length - 1)) / globals["buttons"].filter(x => x.round == globals["round"]).length).width(`${$("#stage3_progress").attr("aria-valuenow")}%`);
+            $("#stage4_progress").attr("aria-valuenow", (100 * globals["buttons"].filter(x => (!x.enabled || x.used) && x.round == globals["round"]).length) / globals["buttons"].filter(x => x.round == globals["round"]).length).width(`${$("#stage4_progress").attr("aria-valuenow")}%`);
         }, 1000 - ((globals["round"] - 1) * 25));
 
         const timer = setInterval(() => {
@@ -202,12 +219,17 @@ const funcs = {
                 $("#stage4_pause").removeClass("btn-secondary").addClass("btn-primary");
 
                 $(".game_btn:not(:disabled)").attr("disabled", true).addClass("paused");
+                
+                $("#sound_background")[0].pause();
 
                 return;
             } else {
                 $("#stage4_pause").removeClass("btn-primary").addClass("btn-secondary");
 
                 $(".game_btn.paused").attr("disabled", false).removeClass("paused");
+                
+                $("#sound_background")[0].play();
+                $("#sound_background")[0].volume = 0.1;
             }
 
             time = parseFloat((time + (0.001 * (new Date().getTime() - lastTime).toFixed(3))).toFixed(3));
@@ -215,6 +237,7 @@ const funcs = {
             $("#stage4_time").html(`${((1000 - ((globals["round"] - 1) * 25)) * (globals["buttons"].filter(x => x.enabled && !x.used).length)) / 1000}s`);
 
             if ($("#stage4_score").html() < Math.round(globals["score"])) $("#stage4_score").html(+$("#stage4_score").html() + 1);
+            $("#stage4_combo").html(`${combo} (+${combo * 3} points)`);
         }, 1);
     },
     "5": () => {
